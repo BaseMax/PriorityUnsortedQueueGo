@@ -7,34 +7,35 @@
 
 package main
 
-import (
-	"container/heap"
-	"fmt"
-)
+import "fmt"
 
 // Main example
 func main() {
 	// create a priority queue
 	pq := PriorityQueue{}
-	heap.Init(&pq)
 
-	// add items
-	heap.Push(&pq, 1)
-	heap.Push(&pq, 2)
-	heap.Push(&pq, 3)
+	// push items to the queue
+	pq.Push(1, 1)
+	pq.Push(2, 2)
+	pq.Push(3, 3)
+	pq.Push(4, 4)
+	pq.Push(5, 5)
+	pq.Push(6, 1)
 
-	// pop items
-	fmt.Println(heap.Pop(&pq))
-	fmt.Println(heap.Pop(&pq))
-	fmt.Println(heap.Pop(&pq))
+	// print the queue
+	fmt.Println(pq.String())
 
-	// add items
-	heap.Push(&pq, 10)
-	heap.Push(&pq, 20)
-	heap.Push(&pq, 30)
+	// pop the queue
+	fmt.Println(pq.Pop())
+	fmt.Println(pq.Pop())
+	fmt.Println(pq.Pop())
+	fmt.Println(pq.Pop())
 
-	// iterate
+	// iterate the queue
 	for pq.Len() > 0 {
-		fmt.Println(heap.Pop(&pq))
+		fmt.Println(pq.Pop())
 	}
+
+	// print as string
+	fmt.Println(pq.String())
 }
