@@ -27,4 +27,14 @@ func main() {
 	fmt.Println(heap.Pop(&pq))
 	fmt.Println(heap.Pop(&pq))
 	fmt.Println(heap.Pop(&pq))
+
+	// add items
+	heap.Push(&pq, 10)
+	heap.Push(&pq, 20)
+	heap.Push(&pq, 30)
+
+	// iterate
+	for pq.Len() > 0 {
+		fmt.Println(heap.Pop(&pq))
+	}
 }
