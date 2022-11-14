@@ -48,8 +48,13 @@ func (q *PriorityQueue) Enqueue(value interface{}, priority int) {
 		fmt.Println("Queue is full!")
 		return
 	}
-	q.rear++
-	q.items[q.rear] = QueueItem{value, priority}
+	if q.front == -1 {
+		q.front = 0
+	}
+	q.rear = q.rear + 1%q.size
+	q.items[q.rear] = QueueItem{
+		Value:    value,
+		Priority: priority}
 }
 
 // Dequeue, O(n)
