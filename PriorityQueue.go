@@ -1,8 +1,8 @@
 /*
- * @Name: Priority Queue Go
+ * @Name: Priority Unsorted Queue Go
  * @Author: Max Base
  * @Date: 2022-11-12
- * @Repository: https://github.com/basemax/PriorityQueueGo
+ * @Repository: https://github.com/basemax/PriorityUnsortedQueueGo
  */
 
 package main
