@@ -12,40 +12,105 @@ import "fmt"
 type QueueItem struct {
 	Value    interface{}
 	Priority int
-	Index    int
 }
 
 type PriorityQueue struct {
 	front int
 	rear  int
+	size  int
+	// unsorted list
 	items []QueueItem
 }
 
-func (pq *PriorityQueue) swap(i, j int) {
-	pq.items[i], pq.items[j] = pq.items[j], pq.items[i]
-	pq.items[i].Index = i
-	pq.items[j].Index = j
+// Create, O(1)
+func NewPriorityQueue(size int) *PriorityQueue {
+	return &PriorityQueue{
+		front: -1,
+		rear:  -1,
+		size:  size,
+		items: make([]QueueItem, size),
+	}
 }
 
-func (pq *PriorityQueue) Push(value interface{}, priority int) {
-	item := QueueItem{value, priority, pq.rear}
-	pq.items = append(pq.items, item)
-	pq.rear++
+// isFull, O(1)
+func (q *PriorityQueue) isFull() bool {
+	return q.rear == q.size-1
 }
 
-func (pq *PriorityQueue) Pop() interface{} {
-	if pq.Len() == 0 {
+// isEmpty, O(1)
+func (q *PriorityQueue) isEmpty() bool {
+	return q.front == -1 || q.front > q.rear
+}
+
+// Enqueue, O(1)
+func (q *PriorityQueue) Enqueue(value interface{}, priority int) {
+	if q.isFull() {
+		fmt.Println("Queue is full!")
+		return
+	}
+	q.rear++
+	q.items[q.rear] = QueueItem{value, priority}
+}
+
+// Dequeue, O(n)
+func (q *PriorityQueue) Dequeue() interface{} {
+	if q.isEmpty() {
+		fmt.Println("Queue is empty!")
 		return nil
 	}
-	item := pq.items[pq.front]
-	pq.front++
-	return item.Value
+	max := q.items[q.front]
+	maxIndex := q.front
+	i := q.front + 1%q.size
+	for ; i <= q.rear; i++ {
+		if q.items[i].Priority > max.Priority {
+			max = q.items[i]
+			maxIndex = i
+		}
+	}
+	for maxIndex < q.rear {
+		q.items[maxIndex] = q.items[maxIndex+1]
+		maxIndex = maxIndex + 1%q.size
+	}
+	q.rear--
+	return max.Value
 }
 
-func (pq *PriorityQueue) Len() int {
-	return pq.rear - pq.front
+// Peek, O(n)
+func (q *PriorityQueue) Peek() interface{} {
+	if q.isEmpty() {
+		fmt.Println("Queue is empty!")
+		return nil
+	}
+	max := q.items[q.front]
+	i := q.front + 1%q.size
+	for ; i <= q.rear; i++ {
+		if q.items[i].Priority > max.Priority {
+			max = q.items[i]
+		}
+	}
+	return max.Value
 }
 
-func (pq *PriorityQueue) String() string {
-	return fmt.Sprintf("%v", pq.items)
+// Count, O(1)
+func (q *PriorityQueue) Count() int {
+	return q.rear - q.front + 1
+}
+
+// Clear, O(1)
+func (q *PriorityQueue) Clear() {
+	q.front = -1
+	q.rear = -1
+}
+
+// ToString, O(n)
+func (q *PriorityQueue) ToString() string {
+	if q.isEmpty() {
+		return "Queue is empty!"
+	}
+	result := ""
+	i := q.front
+	for ; i <= q.rear; i++ {
+		result += fmt.Sprintf("%v ", q.items[i].Value)
+	}
+	return result
 }
