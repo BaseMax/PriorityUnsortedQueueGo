@@ -11,31 +11,29 @@ import "fmt"
 
 // Main example
 func main() {
-	// create a priority queue
-	pq := PriorityQueue{}
+	// Create a new queue
+	queue := NewPriorityQueue(5)
 
-	// push items to the queue
-	pq.Push(1, 1)
-	pq.Push(2, 2)
-	pq.Push(3, 3)
-	pq.Push(4, 4)
-	pq.Push(5, 5)
-	pq.Push(6, 1)
+	// Enqueue some items
+	queue.Enqueue("A", 1)
+	queue.Enqueue("B", 2)
+	queue.Enqueue("C", 3)
+	queue.Enqueue("D", 4)
+	queue.Enqueue("E", 5)
 
-	// print the queue
-	fmt.Println(pq.String())
+	fmt.Println(queue.ToString())
 
-	// pop the queue
-	fmt.Println(pq.Pop())
-	fmt.Println(pq.Pop())
-	fmt.Println(pq.Pop())
-	fmt.Println(pq.Pop())
+	// Dequeue and print
+	fmt.Println(queue.Dequeue())
+	fmt.Println(queue.Dequeue())
+	fmt.Println(queue.Dequeue())
+	fmt.Println(queue.Dequeue())
+	fmt.Println(queue.Dequeue())
+	fmt.Println(queue.Dequeue())
 
-	// iterate the queue
-	for pq.Len() > 0 {
-		fmt.Println(pq.Pop())
-	}
+	queue.Enqueue("A", 10)
+	queue.Enqueue("B", 20)
+	queue.Enqueue("C", 3)
 
-	// print as string
-	fmt.Println(pq.String())
+	fmt.Println(queue.ToString())
 }
