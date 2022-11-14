@@ -1,2 +1,2 @@
-# Priority Queue Go (PriorityQueueGo)
+# Priority Unsorted Queue Go (PriorityUnsortedQueueGo)
 
